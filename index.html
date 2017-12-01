@@ -2,39 +2,27 @@
 <body>
 
 	<main>
-		<ul id="books"></ul>
+		<div id="books"></div>
 	</main>
 	
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 	<script type="text/javascript">
 	
-		function createNode(element) {
-			return document.createElement(element);
-		}
-
-		function append(parent, el) {
-			return parent.appendChild(el);
-		}
-	
-		const ul = document.getElementById('books');
-		const url = 'api_static.txt';
-		
-		fetch(url)
-		.then(function(data) {
-			let books = data;
-			return books.map(function(book) {
-				let li = createNode('li'),
-					img = createNode('img'),
-					span = createNode('span');
-				img.src = book.cover;
-				span.innerHTML = `${book.title}`;
-				append(li, img);
-				append(li, span);
-				append(ul, li);
-			})
-		})
-		.catch(function(error) {
-			console.log(error);
-		});
+		$(document).ready(function(){
+                $.ajax({
+                    url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books&max=10&booksort=title',
+                    dataType: 'jsonp',
+                    success: function(dataWeGotViaJsonp){
+                        var text = '';
+                        var len = dataWeGotViaJsonp.length;
+                        for(var i=0;i<len;i++){
+                            bookEntry = dataWeGotViaJsonp[i];
+                            text += '<p>' + '<img src = ' + "bookEntry.cover" + '/>' + bookEntry.title + '</p>';
+                        }
+                        $('#books').html(text);
+                    }
+                });
+            })
 
 	</script>
 </body>
