@@ -12,13 +12,12 @@
                 $.ajax({
                     url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books&max=10&booksort=title',
                     dataType: 'jsonp',
-                    success: function(result){
-                    	var asArray = _(result.books).toArray();
+                    success: function(widgetResults){
                         var text = '';
-                        var len = asArray.length;
+                        var len = Object.keys(widgetResults.books).length;
                         console.log(len);
                         for(var i=0;i<len;i++){
-                            bookEntry = asArray[i];
+                            bookEntry = widgetResults.books[i];
                             text += '<p>' + '<img src = ' + "bookEntry.cover" + '/>' + bookEntry.title + '</p>';
                         }
                         $('#books').html(text);
