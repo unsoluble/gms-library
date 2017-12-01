@@ -1,1 +1,33 @@
-<script type="text/javascript" src="https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books,bookreviews&limit=reviews&max=10&reviewmax=100&booksort=title"></script>
+<html>
+<body>
+	<main>
+		<div id="test"></div>
+	</main>
+<script type="text/javascript">
+
+function query ( ) {
+			console.log('query');
+			$.ajax('https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books&max=10&booksort=title', { success: render });
+		}
+
+function render (xhr) {
+			console.log('xhr', xhr);
+			
+			var result = xhr[0];
+			
+			$('#test').text(result.title);
+			
+			
+			}
+			
+function init ( ) {
+			console.log('init');
+			query( );
+			setInterval(query, 1 * 60 * 1000);
+		}
+
+		init( );
+
+</script>
+</body>
+</html>
