@@ -3,32 +3,12 @@
 	<main>
 		<div id="test">empty</div>
 	</main>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript">
+	<script type="text/javascript">
 
-function query ( ) {
-			console.log('query');
-			$.ajax('https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books&max=10&booksort=title', { success: render });
-		}
+	var result = JSON.parse("https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books&max=10&booksort=title");
+	
+	document.getElementById("test").innerHTML = result[0].title
 
-function render (xhr) {
-			console.log('xhr', xhr);
-			
-			var result = xhr[0];
-			
-			$('#test').text(result.title);
-			
-			
-			}
-			
-function init ( ) {
-			console.log('init');
-			query( );
-			setInterval(query, 1 * 60 * 1000);
-		}
-
-		init( );
-
-</script>
+	</script>
 </body>
 </html>
