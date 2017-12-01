@@ -19,7 +19,6 @@
 		const url = 'api_static.txt';
 		
 		fetch(url)
-		.then((resp) => resp.json())
 		.then(function(data) {
 			let books = data.results;
 			return authors.map(function(book) {
