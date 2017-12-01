@@ -19,7 +19,7 @@
                         var arr = $.map(result.books, function(el) { return el });
 
                         for(var i=0;i<len;i++){
-                            text += '<img width="100" src = ' + arr[i].cover + '/>'';
+                            text += '<img width="100" src="' + arr[i].cover + '" />';
                         }
                         $('#books').html(text);
                     }
