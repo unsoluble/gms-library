@@ -1,15 +1,41 @@
 <html>
 <body>
-	<main>
-		<div id="test">empty</div>
-	</main>
-	<script type="text/javascript">
 
-	var result = "https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books&max=10&booksort=title";
+	<main>
+		<ul id="books"></div>
+	</main>
 	
-	console.log(result);
+	<script type="text/javascript">
 	
-	document.getElementById("test").innerHTML = result[0].title
+		function createNode(element) {
+			return document.createElement(element);
+		}
+
+		function append(parent, el) {
+			return parent.appendChild(el);
+		}
+	
+		const ul = document.getElementById('books');
+		const url = 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books,bookdate&max=10&booksort=title';
+		
+		fetch(url)
+		.then((resp) => resp.json())
+		.then(function(data) {
+			let books = data.results;
+			return authors.map(function(book) {
+				let li = createNode('li'),
+					img = createNode('img'),
+					span = createNode('span');
+				img.src = book.cover;
+				span.innerHTML = `${book.title}`;
+				append(li, img);
+				append(li, span);
+				append(ul, li);
+			})
+		})
+		.catch(function(error) {
+			console.log(error);
+		});
 
 	</script>
 </body>
