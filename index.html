@@ -15,9 +15,8 @@
                     success: function(result){
                         var text = '';
                         console.log(result);
-                        var len = result.books.length;
-                        console.log(result.books);
-                        console.log(result.books.length);
+                        var len = Object.keys(result.books).length;
+                        console.log(len);
                         for(var i=0;i<len;i++){
                             bookEntry = result.books[i];
                             text += '<p>' + '<img src = ' + "bookEntry.cover" + '/>' + bookEntry.title + '</p>';
