@@ -21,7 +21,7 @@
 		fetch(url)
 		.then(function(data) {
 			let books = data.results;
-			return authors.map(function(book) {
+			return books.map(function(book) {
 				let li = createNode('li'),
 					img = createNode('img'),
 					span = createNode('span');
