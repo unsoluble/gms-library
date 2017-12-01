@@ -15,12 +15,17 @@
                     success: function(widgetResults){
                         var text = '';
                         var len = Object.keys(widgetResults.books).length;
-                        console.log(len);
+                        
+                        console.log('widgetResults.books[0]', widgetResults.books[0]);
+                        console.log('widgetResults.books[0].title', widgetResults.books[0].title);
+                        
+                        /*
                         for(var i=0;i<len;i++){
                             bookEntry = widgetResults.books[i];
                             text += '<p>' + '<img src = ' + "bookEntry.cover" + '/>' + bookEntry.title + '</p>';
                         }
                         $('#books').html(text);
+                        */
                     }
                 });
             })
