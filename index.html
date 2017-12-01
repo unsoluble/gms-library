@@ -13,12 +13,12 @@
                     url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books&max=10&booksort=title',
                     dataType: 'jsonp',
                     success: function(result){
+                    	var asArray = _(result.books).toArray();
                         var text = '';
-                        console.log(result);
-                        var len = Object.keys(result.books).length;
+                        var len = asArray.length;
                         console.log(len);
                         for(var i=0;i<len;i++){
-                            bookEntry = result.books[i];
+                            bookEntry = asArray[i];
                             text += '<p>' + '<img src = ' + "bookEntry.cover" + '/>' + bookEntry.title + '</p>';
                         }
                         $('#books').html(text);
