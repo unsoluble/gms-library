@@ -14,6 +14,7 @@
                     dataType: 'jsonp',
                     success: function(dataWeGotViaJsonp){
                         var text = '';
+                        console.log(dataWeGotViaJsonp);
                         var len = dataWeGotViaJsonp.length;
                         for(var i=0;i<len;i++){
                             bookEntry = dataWeGotViaJsonp[i];
