@@ -15,10 +15,10 @@
                     success: function(widgetResults){
                         var text = '';
                         var len = Object.keys(widgetResults.books).length;
-                        
-                        console.log('widgetResults', widgetResults);
-                        console.log('widgetResults.books', widgetResults.books);
-                        console.log('widgetResults.books[0].title', widgetResults.books[0].title);
+                        var result = JSON.parse(widgetResults.books);
+                        console.log('result', result);
+                        console.log('result.books', result.books);
+                        console.log('result.books[0].title', result.books[0].title);
                         
                         /*
                         for(var i=0;i<len;i++){
