@@ -12,10 +12,10 @@
                 $.ajax({
                     url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books&max=10&booksort=title',
                     dataType: 'jsonp',
-                    success: function(widgetResults){
+                    success: function(result){
                         var text = '';
-                        var len = Object.keys(widgetResults.books).length;
-                        var result = JSON.parse(widgetResults);
+                        var len = Object.keys(result.books).length;
+                        
                         console.log('result', result);
                         console.log('result.books', result.books);
                         console.log('result.books[0].title', result.books[0].title);
