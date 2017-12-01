@@ -10,7 +10,7 @@
 	
 		$(document).ready(function(){
                 $.ajax({
-                    url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books&max=10&booksort=title',
+                    url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books,bookdate&max=10&booksort=random',
                     dataType: 'jsonp',
                     success: function(result){
                         var text = '';
@@ -19,7 +19,7 @@
                         var arr = $.map(result.books, function(el) { return el });
 
                         for(var i=0;i<len;i++){
-                            text += '<p>' + '<img src = ' + arr[i].cover + '/>' + arr[i].title + '</p>';
+                            text += '<p>' + '<img width="200" src = ' + arr[i].cover + '/>' + arr[i].title + '</p>';
                         }
                         $('#books').html(text);
                     }
