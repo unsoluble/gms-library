@@ -5,7 +5,9 @@
 	</main>
 	<script type="text/javascript">
 
-	var result = JSON.parse("https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books&max=10&booksort=title");
+	var result = "https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books&max=10&booksort=title";
+	
+	console.log(result);
 	
 	document.getElementById("test").innerHTML = result[0].title
 
