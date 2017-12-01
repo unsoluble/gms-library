@@ -1,13 +1,7 @@
 <html>
 <body>
-
-	<main>
-		<div id="books"></div>
-	</main>
-	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 	<script type="text/javascript">
-	
 		$(document).ready(function(){
                 $.ajax({
                     url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books,bookdate&max=5&booksort=random',
@@ -24,8 +18,10 @@
                         $('#books').html(text);
                     }
                 });
-            })
-
+            });
 	</script>
+	
+	<div id="books"></div>
+	
 </body>
 </html>
