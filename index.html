@@ -16,9 +16,11 @@
                         var text = '';
                         var len = Object.keys(result.books).length;
                         
+                        var arr = $.map(result.books, function(el) { return el });
+                        
                         console.log('result', result);
                         console.log('result.books', result.books);
-                        console.log('result.books[0].title', result.books[0].title);
+                        console.log('arr', arr);
                         
                         /*
                         for(var i=0;i<len;i++){
