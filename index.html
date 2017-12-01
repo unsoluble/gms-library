@@ -15,9 +15,9 @@
                     success: function(dataWeGotViaJsonp){
                         var text = '';
                         console.log(dataWeGotViaJsonp);
-                        var len = dataWeGotViaJsonp.length;
+                        var len = dataWeGotViaJsonp.books.length;
                         for(var i=0;i<len;i++){
-                            bookEntry = dataWeGotViaJsonp[i];
+                            bookEntry = dataWeGotViaJsonp.books[i];
                             text += '<p>' + '<img src = ' + "bookEntry.cover" + '/>' + bookEntry.title + '</p>';
                         }
                         $('#books').html(text);
