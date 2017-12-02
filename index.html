@@ -10,7 +10,7 @@
 	
 		$(document).ready(function(){
                 $.ajax({
-                    url: 'http://www.librarything.com/api/json_books.php?key=2337767339&libraries=&resultsets=books,bookdates&max=5&userid=unsoluble&showstructure=1&booksort=entry',
+                    url: 'http://www.librarything.com/api/json_books.php?key=2337767339&libraries=&resultsets=books,bookdates&max=20&userid=unsoluble&showstructure=1&booksort=entry',
                     dataType: 'jsonp',
                     success: function(result){
                         var text = '';
