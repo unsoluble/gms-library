@@ -1,16 +1,14 @@
 <html>
 <body>
-
-	<main>
-		<div id="books"></div>
-	</main>
-	
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script type="text/javascript">
-	
 		$(document).ready(function(){
                 $.ajax({
+<<<<<<< HEAD
                     url: 'http://www.librarything.com/api/json_books.php?key=2337767339&libraries=&resultsets=books,bookdates&max=5&userid=unsoluble&showstructure=1&booksort=entry',
+=======
+                    url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books,bookdate&max=5&booksort=random',
+>>>>>>> origin/master
                     dataType: 'jsonp',
                     success: function(result){
                         var text = '';
@@ -18,14 +16,21 @@
                         
                         var arr = $.map(result.books, function(el) { return el });
 
+<<<<<<< HEAD
                         for(var i=0 ;i < numBooks; i++){
                             text += '<p>' + '<img width="200" src = ' + arr[i].cover + '/>' + arr[i].title + '</p>';
+=======
+                        for(var i=0;i<len;i++){
+                            text += '<img width="100" src="' + arr[i].cover + '" />';
+>>>>>>> origin/master
                         }
                         $('#books').html(text);
                     }
                 });
-            })
-
+            });
 	</script>
+	
+	<div id="books"></div>
+	
 </body>
 </html>
