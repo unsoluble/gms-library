@@ -6,7 +6,7 @@
 	
 		$(document).ready(function(){
                 $.ajax({
-                    url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books,bookdate&max=5&booksort=entry',
+                    url: 'http://www.librarything.com/api/json_books.php?key=2337767339&libraries=&resultsets=books,bookdates&max=20&userid=unsoluble&booksort=entry',
                     dataType: 'jsonp',
                     success: function(result){
                         var text = '';
