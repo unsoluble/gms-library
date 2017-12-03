@@ -18,15 +18,29 @@
 	
 		$(document).ready(function(){
                 $.ajax({
-                    url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books,bookdates&max=20&booksort=entry',
+                    url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books,bookdates&max=50&booksort=entry',
                     dataType: 'jsonp',
                     success: function(result){
                         var text = '';
                         var numBooks = 12;
-                        
                         var arr = $.map(result.books, function(el) { return el });
+                        
+                        function getUnique(count) {
+							var tmp = arr.slice(arr);
+							var ret = [];
+
+							for (var i = 0; i < count; i++) {
+								var index = Math.floor(Math.random() * tmp.length);
+								var removed = tmp.splice(index, 1);
+								ret.push(removed[0]);
+							}
+							return ret;
+						}
+						
+						var subset = getUnique(numBooks);
+                        
                         for(var i=0; i < numBooks; i++){
-                            text += '<img class="cover" src="' + arr[i].cover + '" />';
+                            text += '<img class="cover" src="' + subset[i].cover + '" />';
                         }
                         $('#books').html(text);
                     }
