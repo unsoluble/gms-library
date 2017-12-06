@@ -4,6 +4,7 @@
 	<link type="text/css" rel="stylesheet" href="jquery.qtip.min.css" />
 	<link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
 	<link href='styles.css' rel='stylesheet'>
+	<base target="_parent">
 </head>
 
 <body>
@@ -27,11 +28,13 @@
 					var arr = $.map(result.books, function(el) { return el });
 					
 					for (i=0; i < arr.length; i++) {
-						text += '<img class="cover" src="' + arr[i].cover + '" />';
+						var searchTerms = encodeURI(arr[i].title);
+						var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/books?requestId=new&currentSearchTypeId=ALL&q=" + searchTerms + "&resultsSortBy=MOSTRECENT"
+						text += '<a class="book" href="' + searchQuery + '"><img class="cover" src="' + arr[i].cover + '" /></a>';
 						text += '<div class="hidden">' + arr[i].title + '<br><span class="author">by ' + arr[i].author_fl + '</span></div>';
 					}
 					$('#books').html(text);
-					$('img').each(function() {
+					$('.book').each(function() {
 						$(this).qtip({
 							content: {
 								text: $(this).next('div')
@@ -42,7 +45,8 @@
 								target: $(this),
 								viewport: $(window),
 								adjust: {
-									method: 'shift none'
+									method: 'shift none',
+									y: -100
 								}
 							},
 							show: {
