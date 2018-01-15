@@ -40,7 +40,7 @@
 					let soFar = 0;
 					
 					while (soFar < numBooks) {
-						if (subset[i].cover.indexOf("librarything") >=0 ) {
+						if (subset[i].cover.indexOf("librarything") >=0 ) || (subset[i].tag == "NovelSet") {
 							i++;
 						} else {
 							var searchTerms = encodeURI(subset[i].title);
