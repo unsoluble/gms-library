@@ -16,14 +16,14 @@
 	
 		$(document).ready(function(){
 			$.ajax({
-				url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books,bookdates,booktags&max=50&booksort=entry_REV&showTags=1',
+				url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books,bookdates,booktags&max=100&booksort=entry_REV&showTags=1',
 				dataType: 'jsonp',
 				success: function(result){
 					var text = '';
 					var numBooks = 18; // number of books to display
 					var arr = $.map(result.books, function(el) { return el });
 					
-					function getUnique(count) {
+					function getRandomUnique(count) {
 						var tmp = arr.slice(arr);
 						var ret = [];
 
@@ -35,7 +35,7 @@
 						return ret;
 					}
 					
-					var subset = getUnique(50); // a few more than the display number, to account for missing covers
+					var subset = getRandomUnique(50); // a few more than the display number, to account for missing covers
 					
 					let i = 0;
 					let soFar = 0;
