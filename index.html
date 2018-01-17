@@ -43,6 +43,9 @@
 					let soFar = 0;
 					
 					while (soFar < numBooks) {
+						if (subset[i].tags[0] == "NovelSet") {
+							i++;
+						}
 						if (subset[i].cover.indexOf("librarything") >=0 ) { // skip books with covers that aren't from Amazon, as they don't load properly
 							i++;
 						} else {
