@@ -47,7 +47,7 @@
 							console.log(subset[i].title);
 							i++;
 						}
-						if (subset[i].cover.indexOf("librarything") >=0 ) { // skip books with covers that aren't from Amazon, as they don't load properly
+						else if (subset[i].cover.indexOf("librarything") >=0 ) { // skip books with covers that aren't from Amazon, as they don't load properly
 							i++;
 						} else {
 							var searchTerms = encodeURI(subset[i].title);
