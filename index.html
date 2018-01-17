@@ -20,7 +20,7 @@
 				dataType: 'jsonp',
 				success: function(result){
 					var text = '';
-					var numBooks = 18;
+					var numBooks = 20;
 					var arr = $.map(result.books, function(el) { return el });
 					
 					function getUnique(count) {
@@ -35,7 +35,7 @@
 						return ret;
 					}
 					
-					var subset = getUnique(20);
+					var subset = getUnique(25);
 					let i = 0;
 					let soFar = 0;
 					
