@@ -44,6 +44,11 @@
 					arr.sort(dynamicSort("author_code"));
 		
 					for (i=0; i < arr.length; i++) {
+					
+						if (arr[i].hasOwnProperty('tags')) {
+							console.log('ping');
+						}
+					
 						var searchTerms = encodeURI(arr[i].title);
 						var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/books?requestId=new&currentSearchTypeId=ALL&q=" + searchTerms + "&resultsSortBy=MOSTRECENT"
 						text += '<tr>';
