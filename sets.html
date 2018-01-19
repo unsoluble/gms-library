@@ -2,16 +2,19 @@
 
 <head>
 	<link type="text/css" rel="stylesheet" href="jquery.qtip.min.css" />
-	<link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,500,600,700,800' rel='stylesheet'>
 	<link href='styles.css' rel='stylesheet'>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
+	<script src="jquery.qtip.min.js"></script>
+	<script src="stupidtable.js"></script>
+	
 	<base target="_parent">
+
 </head>
 
 <body>
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
-	<script type="text/javascript" src="jquery.qtip.min.js"></script>
-	
 	<script type="text/javascript">
 	
 		$(document).ready(function(){
@@ -21,48 +24,45 @@
 		var tag = url.searchParams.get("tag");
 		
 			$.ajax({
-				url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books,bookreviews,booktags&reviewmax=500&tagList=NovelSet&max=100&showReviews=1&showTags=1',
+				url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books,bookreviews,booktags&reviewmax=800&tagList=NovelSet&max=200&showReviews=1&showTags=1',
 				dataType: 'jsonp',
 				success: function(result){
-					var text = '<table>';
+					var text = '<table id="bookTable">';
+					text += '<thead><tr>';
+					text += '<th></th>';
+					text += '<th data-sort="string">title</th>';
+					text += '<th data-sort="string" data-sort-onload=yes>author</th>';
+					text += '<th>summary</th>';
+					text += '<th data-sort="string">grade</th>';
+					text += '<th data-sort="int">copies</th>';
+					text += '</tr></thead>';
+					text += '<tbody>';
 					var arr = $.map(result.books, function(el) { return el });
-					
-					console.log(result);
-					
-					function dynamicSort(property) {
-						var sortOrder = 1;
-						if(property[0] === "-") {
-							sortOrder = -1;
-							property = property.substr(1);
-						}
-						return function (a,b) {
-							var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-							return result * sortOrder;
-						}
-					}
-					
-					arr.sort(dynamicSort("author_code"));
-		
+							
 					for (i=0; i < arr.length; i++) {
-					
-						if (arr[i].hasOwnProperty('tags')) {
-							console.log('ping');
-						}
-					
 						var searchTerms = encodeURI(arr[i].title);
 						var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/books?requestId=new&currentSearchTypeId=ALL&q=" + searchTerms + "&resultsSortBy=MOSTRECENT"
+						
+						var gradeLevel = arr[i].dateacquired_date.slice(-1);
+						
+						if ((gradeLevel < 6) || (gradeLevel > 8)) {
+							gradeLevel = "";
+						}
 						text += '<tr>';
-						text += '<td><div class="book"><a href="' + searchQuery + '"><img class="cover" src="' + arr[i].cover + '" /></a></div></td>';
-						text += '<td>' + arr[i].title + '</td>';
-						text += '<td>' + arr[i].author_fl + '</td>';
-						text += '<td>' + arr[i].copies + '</td>';
-						text += '<td>' + arr[i].bookreview + '</td>';
+						text += '<td style="text-align: center; padding: 0;"><div class="book"><a href="' + searchQuery + '"><img class="cover" src="' + arr[i].cover + '" /></a></div></td>';
+						text += '<td class="title_td">' + arr[i].title + '</td>';
+						text += '<td class="author_td" data-sort-value="' + arr[i].author_code + '">' + arr[i].author_fl + '</td>';
+						text += '<td class="summary_td">' + arr[i].bookreview + '</td>';
+						text += '<td class="grade_td">' + gradeLevel + '</td>';
+						text += '<td class="copies_td">' + arr[i].copies + '</td>';
 						text += '</tr>';
 					}
 					
-					text += '</table>';
+					text += '</tbody></table>';
 					
 					$('#books').html(text);
+					
+					$("#bookTable").stupidtable();
 				}
 			});
 		});

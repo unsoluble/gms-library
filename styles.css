@@ -23,6 +23,62 @@ a {
 	font-style: italic;
 }
 
+#bookTable {
+	font-family: 'Open Sans';
+	font-size: 0.9em;
+	border-collapse: collapse;
+	font-weight: 400;
+	width: 100%;
+}
+
+#bookTable thead {
+	cursor: default;
+	font-size: 1.1em;
+	text-transform: uppercase;
+	font-weight: 800;
+}
+
+#bookTable th, tr, td {
+	border: 0;
+	padding: 15px;
+	vertical-align: top;
+}
+
+#bookTable tr:nth-child(even) {
+	background-color: #f9f9f9;
+}
+
+#bookTable th {
+	padding: 5px;
+	background-color: rgb(85, 159, 88);
+	color: #fff;
+}
+
+#bookTable .title_td {
+	width: 190px;
+	font-weight: 700;
+}
+
+#bookTable .author_td {
+	width: 160px;
+}
+
+#bookTable .summary_td {
+	line-height: 1.6em;
+	min-width: 300px;
+	font-size: 0.85em;
+}
+
+#bookTable .grade_td {
+	width: 80px;
+	text-align: center;
+}
+
+#bookTable .copies_td {
+	width: 70px;
+	text-align: center;
+}
+
 #books {
 	display: flex;
 	justify-content: space-between;
