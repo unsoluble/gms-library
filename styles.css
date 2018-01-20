@@ -31,27 +31,28 @@ a {
 	width: 100%;
 }
 
-#bookTable thead {
-	cursor: default;
-	font-size: 1.1em;
-	text-transform: uppercase;
-	font-weight: 800;
-}
-
 #bookTable th, tr, td {
 	border: 0;
 	padding: 15px;
 	vertical-align: top;
 }
 
+#bookTable th {
+	padding: 5px;
+	background-color: rgb(29, 91, 48);
+	color: #fff;
+	font-weight: 600;
+	cursor: default;
+	font-size: 1.1em;
+	text-transform: uppercase;
+}
+
 #bookTable tr:nth-child(even) {
 	background-color: #f9f9f9;
 }
 
-#bookTable th {
-	padding: 5px;
-	background-color: rgb(10, 77, 31);
-	color: #fff;
+#bookTable tr:nth-child(odd) {
+	background-color: #fff;
 }
 
 #bookTable .title_td {
