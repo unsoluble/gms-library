@@ -48,12 +48,12 @@
 						var gradeLevel = arr[i].dateacquired_date.slice(-1); // gradeLevel is stored in the dateacquired_date field, encoded in the year; 2008 = grade 8, etc.
 						
 						switch (gradeLevel) {
-							case 1:
+							case "1":
 								gradeLevel = "any"
 								break;
-							case 6:
-							case 7:
-							case 8:
+							case "6":
+							case "7":
+							case "8":
 								break;
 							default:
 								gradeLevel = "";
