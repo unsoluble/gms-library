@@ -55,6 +55,11 @@ a {
 	background-color: #fff;
 }
 
+#bookTable .cover_td {
+	text-align: center;
+	padding: 0;
+}
+
 #bookTable .title_td {
 	width: 190px;
 	font-weight: 700;
