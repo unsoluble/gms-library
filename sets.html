@@ -27,6 +27,7 @@
 				url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books,bookreviews,booktags&reviewmax=800&tagList=NovelSet&max=200&showReviews=1&showTags=1',
 				dataType: 'jsonp',
 				success: function(result){
+				
 					var text = '<table id="bookTable">';
 					text += '<thead><tr>';
 					text += '<th></th>';
@@ -37,17 +38,27 @@
 					text += '<th data-sort="int" data-sort-multicolumn="author-column">copies</th>';
 					text += '</tr></thead>';
 					text += '<tbody>';
-					var arr = $.map(result.books, function(el) { return el });
+					
+					var arr = $.map(result.books, function(el) { return el }); // remap the result into a clean array
 							
 					for (i=0; i < arr.length; i++) {
 						var searchTerms = encodeURI(arr[i].title);
 						var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/books?requestId=new&currentSearchTypeId=ALL&q=" + searchTerms + "&resultsSortBy=MOSTRECENT"
 						
-						var gradeLevel = arr[i].dateacquired_date.slice(-1);
+						var gradeLevel = arr[i].dateacquired_date.slice(-1); // gradeLevel is stored in the dateacquired_date field, encoded in the year; 2008 = grade 8, etc.
 						
-						if ((gradeLevel < 6) || (gradeLevel > 8)) {
-							gradeLevel = "";
+						switch (gradeLevel) {
+							case 1:
+								gradeLevel = "any"
+								break;
+							case 6:
+							case 7:
+							case 8:
+								break;
+							default:
+								gradeLevel = "";
 						}
+
 						text += '<tr>';
 						text += '<td style="text-align: center; padding: 0;"><div class="book"><a href="' + searchQuery + '"><img class="cover" src="' + arr[i].cover + '" /></a></div></td>';
 						text += '<td class="title_td">' + arr[i].title + '</td>';
@@ -60,9 +71,9 @@
 					
 					text += '</tbody></table>';
 					
-					$('#books').html(text);
+					$('#books').html(text); // insert the generated HTML
 					
-					$("#bookTable").stupidtable();
+					$("#bookTable").stupidtable(); // sort the table
 				}
 			});
 		});
