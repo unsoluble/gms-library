@@ -48,7 +48,7 @@ a {
 }
 
 #bookTable tr:nth-child(even) {
-	background-color: rgb(227, 244, 232);
+	background-color: rgb(240, 246, 245);
 }
 
 #bookTable tr:nth-child(odd) {
