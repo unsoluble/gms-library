@@ -25,10 +25,10 @@
 					var text = '<table id="bookTable">';
 					text += '<thead><tr>';
 					text += '<th></th>';
-					text += '<th id="title-column" data-sort="string">title</th>';
+					text += '<th id="title-column" data-sort-onload="yes" data-sort="string">title</th>';
 					text += '<th id="author-column" data-sort="string" data-sort-multicolumn="title-column">author</th>';
 					text += '<th>summary</th>';
-					text += '<th id="grade-column" data-sort="string" data-sort-onload="yes" data-sort-multicolumn="author-column">grade</th>';
+					text += '<th id="grade-column" data-sort="string" data-sort-multicolumn="author-column">grade</th>';
 					text += '<th id="author-column" data-sort="int" data-sort-multicolumn="author-column">copies</th>';
 					text += '</tr></thead>';
 					text += '<tbody>';
@@ -37,25 +37,37 @@
 							
 					for (i=0; i < arr.length; i++) {
 						var searchTerms = encodeURI(arr[i].title);
-						var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/books?requestId=new&currentSearchTypeId=ALL&q=" + searchTerms + "&resultsSortBy=MOSTRECENT"
+						var searchQuery = 'https://search.follettsoftware.com/metasearch/ui/27293/search/books?requestId=new&currentSearchTypeId=ALL&q=' + searchTerms + '&resultsSortBy=MOSTRECENT'
 						
 						var gradeLevel = arr[i].dateacquired_date.slice(-1); // gradeLevel is stored in the dateacquired_date field, encoded in the year; 2008 = grade 8, etc.
 						
 						switch (gradeLevel) {
-							case "1":
-								gradeLevel = "any"
+							case '1':
+								gradeLevel = 'any'
 								break;
-							case "6":
-							case "7":
-							case "8":
+							case '6':
+							case '7':
+							case '8':
 								break;
 							default:
-								gradeLevel = "";
+								gradeLevel = '';
+						}
+						
+						var sortTitle = '';
+						
+						if (arr[i].title.substr(0, 2) == 'A ') {
+							sortTitle = arr[i].title.substr(2);
+						}
+						else if (arr[i].title.substr(0, 4) == 'The ') {
+							sortTitle = arr[i].title.substr(4);
+						}
+						else {
+							sortTitle = arr[i].title;
 						}
 
 						text += '<tr>';
 						text += '<td class="cover_td"><div class="book"><a href="' + searchQuery + '"><img class="cover" src="' + arr[i].cover + '" /></a></div></td>';
-						text += '<td class="title_td">' + arr[i].title + '</td>';
+						text += '<td class="title_td" data-sort-value="' + sortTitle + '">' + arr[i].title + '</td>';
 						text += '<td class="author_td" data-sort-value="' + arr[i].author_code + '">' + arr[i].author_fl + '</td>';
 						text += '<td class="summary_td">' + arr[i].bookreview + '</td>';
 						text += '<td class="grade_td">' + gradeLevel + '</td>';
