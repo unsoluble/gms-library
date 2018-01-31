@@ -16,7 +16,7 @@
 	
 		$(document).ready(function(){
 			$.ajax({
-				url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books,bookdates,booktags&max=100&booksort=entry_REV&showTags=1',
+				url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books,bookdates,booktags&max=200&booksort=entry_REV&showTags=1',
 				dataType: 'jsonp',
 				success: function(result){
 					var text = '';
