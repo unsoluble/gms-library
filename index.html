@@ -37,19 +37,21 @@
 					
 					var subset = getRandomUnique(50); // a few more than the display number, to account for missing covers
 					
+					var coverArt = subset[i].cover; // Cover art from LibraryThing (and not Amazon) doesn't load correctly, so use a generic image
+						if (arr[i].cover.indexOf("librarything") >=0 ) {
+							coverArt = 'Generic_Cover.jpg';
+						}
+					
 					let i = 0;
 					let soFar = 0;
 					
 					while (soFar < numBooks) {
 						if ((subset[i].hasOwnProperty('tags')) && (subset[i].tags[0] == "NovelSet")) {
 							i++;
-						}
-						else if (subset[i].cover.indexOf("librarything") >=0 ) { // skip books with covers that aren't from Amazon, as they don't load properly
-							i++;
 						} else {
 							var searchTerms = encodeURI(subset[i].title);
 							var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/books?requestId=new&currentSearchTypeId=ALL&q=" + searchTerms + "&resultsSortBy=MOSTRECENT"
-							text += '<div class="book"><a href="' + searchQuery + '"><img class="cover" src="' + subset[i].cover + '" /></a></div>';
+							text += '<div class="book"><a href="' + searchQuery + '"><img class="cover" src="' + coverArt + '" /></a></div>';
 							text += '<div class="hidden"><a href="' + searchQuery + '">' + subset[i].title + '</a><br><span class="author">by ' + subset[i].author_fl + '</span></div>';
 							i++;
 							soFar++;

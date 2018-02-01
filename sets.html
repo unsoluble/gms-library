@@ -53,8 +53,8 @@
 								gradeLevel = '';
 						}
 						
-						var sortTitle = '';
-						
+						var sortTitle = ''; // Fix sorting for leading articles
+
 						if (arr[i].title.substr(0, 2) == 'A ') {
 							sortTitle = arr[i].title.substr(2);
 						}
@@ -64,9 +64,14 @@
 						else {
 							sortTitle = arr[i].title;
 						}
+						
+						var coverArt = arr[i].cover; // Cover art from LibraryThing (and not Amazon) doesn't load correctly, so use a generic image
+						if (arr[i].cover.indexOf("librarything") >=0 ) {
+							coverArt = 'Generic_Cover.jpg';
+						}
 
 						text += '<tr>';
-						text += '<td class="cover_td"><div class="book"><a href="' + searchQuery + '"><img class="cover" src="' + arr[i].cover + '" /></a></div></td>';
+						text += '<td class="cover_td"><div class="book"><a href="' + searchQuery + '"><img class="cover" src="' + coverArt + '" /></a></div></td>';
 						text += '<td class="title_td" data-sort-value="' + sortTitle + '">' + arr[i].title + '</td>';
 						text += '<td class="author_td" data-sort-value="' + arr[i].author_code + '">' + arr[i].author_fl + '</td>';
 						text += '<td class="summary_td">' + arr[i].bookreview + '</td>';
