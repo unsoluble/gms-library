@@ -45,7 +45,7 @@
 					while (soFar < numBooks) {
 					
 						var coverArt = subset[i].cover; // Cover art from LibraryThing (and not Amazon) doesn't load correctly, so use a generic image
-						if (arr[i].cover.indexOf("librarything") >=0 ) {
+						if (subset[i].cover.indexOf("librarything") >=0 ) {
 							coverArt = 'Generic_Cover.jpg';
 						}
 					
