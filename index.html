@@ -37,15 +37,18 @@
 					
 					var subset = getRandomUnique(50); // a few more than the display number, to account for missing covers
 					
-					var coverArt = subset[i].cover; // Cover art from LibraryThing (and not Amazon) doesn't load correctly, so use a generic image
-						if (arr[i].cover.indexOf("librarything") >=0 ) {
-							coverArt = 'Generic_Cover.jpg';
-						}
+					
 					
 					let i = 0;
 					let soFar = 0;
 					
 					while (soFar < numBooks) {
+					
+						var coverArt = subset[i].cover; // Cover art from LibraryThing (and not Amazon) doesn't load correctly, so use a generic image
+						if (arr[i].cover.indexOf("librarything") >=0 ) {
+							coverArt = 'Generic_Cover.jpg';
+						}
+					
 						if ((subset[i].hasOwnProperty('tags')) && (subset[i].tags[0] == "NovelSet")) {
 							i++;
 						} else {
