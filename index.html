@@ -45,9 +45,13 @@
 							i++;
 						} else {
 							var coverArt = subset[i].cover; // Cover art from LibraryThing (and not Amazon) doesn't load correctly, so use a generic image
+							console.log('pre', coverArt);
+							console.log('pre-title', subset[i].title);
 							if (subset[i].cover.indexOf("librarything") >=0 ) {
 								coverArt = 'Generic_Cover.jpg';
 							}
+							console.log('post', coverArt);
+							console.log('post-title', subset[i].title);
 							var searchTerms = encodeURI(subset[i].title);
 							var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/books?requestId=new&currentSearchTypeId=ALL&q=" + searchTerms + "&resultsSortBy=MOSTRECENT"
 							text += '<div class="book"><a href="' + searchQuery + '"><img class="cover" src="' + coverArt + '" /></a></div>';
