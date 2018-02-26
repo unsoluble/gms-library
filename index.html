@@ -16,7 +16,7 @@
 	
 		$(document).ready(function(){
 			$.ajax({
-				url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books,bookdates,booktags&tagList=%2528no%2Btag%2529&max=200&booksort=entry_REV&showTags=1',
+				url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books,bookdates,booktags&tagList=Regular&max=50&booksort=entry_REV&showTags=1',
 				dataType: 'jsonp',
 				success: function(result){
 					var text = '';
@@ -38,23 +38,16 @@
 					var subset = getRandomUnique(50); // a few more than the display number, to account for missing covers
 					
 					let i = 0;
-					let soFar = 0;
 					
-					while (soFar < numBooks) {
-						if ((subset[i].hasOwnProperty('tags')) && (subset[i].tags[0] == "NovelSet")) {
-							i++;
-						} else {
-							var coverArt = subset[i].cover; // Cover art from LibraryThing (and not Amazon) doesn't load correctly, so use a generic image
-							if (subset[i].cover.indexOf("librarything") >=0 ) {
-								coverArt = 'Generic_Cover.jpg';
-							}
-							var searchTerms = encodeURI(subset[i].title);
-							var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/books?requestId=new&currentSearchTypeId=ALL&q=" + searchTerms + "&resultsSortBy=MOSTRECENT"
-							text += '<div class="book"><a href="' + searchQuery + '"><img class="cover" src="' + coverArt + '" /></a></div>';
-							text += '<div class="hidden"><a href="' + searchQuery + '">' + subset[i].title + '</a><br><span class="author">by ' + subset[i].author_fl + '</span></div>';
-							i++;
-							soFar++;
+					for (i=0; i < numBooks; i++) {
+						var coverArt = subset[i].cover; // Cover art from LibraryThing (and not Amazon) doesn't load correctly, so use a generic image
+						if (subset[i].cover.indexOf("librarything") >=0 ) {
+							coverArt = 'Generic_Cover.jpg';
 						}
+						var searchTerms = encodeURI(subset[i].title);
+						var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/books?requestId=new&currentSearchTypeId=ALL&q=" + searchTerms + "&resultsSortBy=MOSTRECENT"
+						text += '<div class="book"><a href="' + searchQuery + '"><img class="cover" src="' + coverArt + '" /></a></div>';
+						text += '<div class="hidden"><a href="' + searchQuery + '">' + subset[i].title + '</a><br><span class="author">by ' + subset[i].author_fl + '</span></div>';
 					}
 					
 					$('#books').html(text); // populate the div with the covers
