@@ -43,7 +43,7 @@
 							coverArt = 'Generic_Cover.jpg';
 						}
 						var searchTerms = encodeURI(subset[i].title);
-						var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/books?requestId=new&currentSearchTypeId=ALL&q=" + searchTerms + "&resultsSortBy=MOSTRECENT"
+						var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/all?q=" + searchTerms + "&resultsSortBy=MOSTRECENT"
 						text += '<div class="book"><a href="' + searchQuery + '"><img class="cover" src="' + coverArt + '" /></a></div>';
 						text += '<div class="hidden"><a href="' + searchQuery + '">' + subset[i].title + '</a><br><span class="author">by ' + subset[i].author_fl + '</span></div>';
 					}
