@@ -94,5 +94,5 @@ a {
 #selector {
 	font-family: 'Open Sans';
 	font-size: 0.9em;
-	text-align: right;
+	float: right;
 }
