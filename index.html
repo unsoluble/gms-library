@@ -14,17 +14,19 @@
 	
 	<script type="text/javascript">
 	
-		$(document).ready(function(){
-			$.ajax({
-				url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books,bookdates,booktags&tagList=Regular&max=30&booksort=entry_REV&showTags=1',
+		function doStuff(sortOrder) {
+		
+				$.ajax({
+				url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books,bookdates,booktags&tagList=Regular&max=50&booksort=entry_REV&showTags=1',
 				dataType: 'jsonp',
 				success: function(result){
 					var text = '';
 					var numBooks = 18; // number of books to display
-					var arr = $.map(result.books, function(el) { return el });
+					var arrayOfBooks = $.map(result.books, function(el) { return el });
+					arrayOfBooks.reverse();
 					
 					function getRandomUnique(count) {
-						var tmp = arr.slice(arr);
+						var tmp = arrayOfBooks.slice(arrayOfBooks);
 						var ret = [];
 
 						for (var i = 0; i < count; i++) {
@@ -35,20 +37,31 @@
 						return ret;
 					}
 					
-					var subset = getRandomUnique(30);
-										
-					for (var i = 0; i < numBooks; i++) {
-						var coverArt = subset[i].cover; // Cover art from LibraryThing (and not Amazon) doesn't load correctly, so use a generic image
-						if (subset[i].cover.indexOf("librarything") >=0 ) {
-							coverArt = 'Generic_Cover.jpg';
+					function sortOrNot(sortOrder) {
+						$('#random').html("<a href=\"javascript:doStuff('random');\">Show random</a>");
+						$('#latest').html("Showing most recent");
+						
+						if (sortOrder == "random") {
+							arrayOfBooks = getRandomUnique(50);
+							$('#random').html("Showing a random selection");
+							$('#latest').html("<a href=\"javascript:doStuff('latest');\">Show most recent</a>");
 						}
-						var searchTerms = encodeURI(subset[i].title);
-						var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/all?q=" + searchTerms + "&resultsSortBy=MOSTRECENT"
-						text += '<div class="book"><a href="' + searchQuery + '"><img class="cover" src="' + coverArt + '" /></a></div>';
-						text += '<div class="hidden"><a href="' + searchQuery + '">' + subset[i].title + '</a><br><span class="author">by ' + subset[i].author_fl + '</span></div>';
+										
+						for (var i = 0; i < numBooks; i++) {
+							var coverArt = arrayOfBooks[i].cover; // Cover art from LibraryThing (and not Amazon) doesn't load correctly, so use a generic image
+							if (arrayOfBooks[i].cover.indexOf("librarything") >=0 ) {
+								coverArt = 'Generic_Cover.jpg';
+							}
+							var searchTerms = encodeURI(arrayOfBooks[i].title);
+							var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/all?q=" + searchTerms + "&resultsSortBy=MOSTRECENT"
+							text += '<div class="book"><a href="' + searchQuery + '"><img class="cover" src="' + coverArt + '" /></a></div>';
+							text += '<div class="hidden"><a href="' + searchQuery + '">' + arrayOfBooks[i].title + '</a><br><span class="author">by ' + arrayOfBooks[i].author_fl + '</span></div>';
+						}
+					
+						$('#books').html(text); // populate the div with the covers
 					}
 					
-					$('#books').html(text); // populate the div with the covers
+					sortOrNot(sortOrder);
 					
 					$('.book').each(function() { // tooltip stuff
 						$(this).qtip({
@@ -75,10 +88,16 @@
 					});
 				}
 			});
-		});
+			
+		}
+	
+		$(document).ready(doStuff("random"));
 
 	</script>
-	
+	<div id="selector">
+		<span id="random"></span> | 
+		<span id="latest"></span>
+	</div>
 	<div id="books"></div>
 	
 </body>
