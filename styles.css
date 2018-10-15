@@ -90,3 +90,8 @@ a {
 	justify-content: space-between;
 	flex-wrap: wrap;
 }
+
+#selector {
+	font-family: 'Open Sans';
+	font-size: 0.9em;
+}
