@@ -93,6 +93,8 @@ a {
 
 #selector {
 	font-family: 'Open Sans';
-	font-size: 0.9em;
-	float: right;
+	font-size: 1em;
+	text-align: right;
+	font-variant: small-caps;
+	padding-right: 10px;
 }

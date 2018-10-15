@@ -38,13 +38,13 @@
 					}
 					
 					function sortOrNot(sortOrder) {
-						$('#random').html("<a href=\"javascript:doStuff('random');\">Show random</a>");
+						$('#random').html("<a href=\"javascript:doStuff('random');\">show random</a>");
 						$('#latest').html("Showing most recent");
 						
 						if (sortOrder == "random") {
 							arrayOfBooks = getRandomUnique(50);
 							$('#random').html("Showing a random selection");
-							$('#latest').html("<a href=\"javascript:doStuff('latest');\">Show most recent</a>");
+							$('#latest').html("<a href=\"javascript:doStuff('latest');\">show most recent</a>");
 						}
 										
 						for (var i = 0; i < numBooks; i++) {
