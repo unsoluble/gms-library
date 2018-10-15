@@ -39,11 +39,11 @@
 					
 					function sortOrNot(sortOrder) {
 						$('#random').html("<a href=\"javascript:doStuff('random');\">show random</a>");
-						$('#latest').html("Showing most recent");
+						$('#latest').html("showing most recent");
 						
 						if (sortOrder == "random") {
 							arrayOfBooks = getRandomUnique(50);
-							$('#random').html("Showing a random selection");
+							$('#random').html("showing a random selection");
 							$('#latest').html("<a href=\"javascript:doStuff('latest');\">show most recent</a>");
 						}
 										
