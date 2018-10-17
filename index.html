@@ -16,16 +16,19 @@
 	
 		function doStuff(sortOrder) {
 		
-				$.ajax({
+			$.ajax( {
 				url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books,bookdates,booktags&tagList=Regular&max=50&booksort=entry_REV&showTags=1',
 				dataType: 'jsonp',
 				success: function(result){
+				
 					var text = '';
 					var numBooks = 18; // number of books to display
 					var arrayOfBooks = $.map(result.books, function(el) { return el });
-					arrayOfBooks.reverse();
 					
-					function getRandomUnique(count) {
+					arrayOfBooks.reverse(); // put the by-latest list in descending order
+				
+					function getRandomUnique(count) { // pull a random assortment of books from the returned set
+					
 						var tmp = arrayOfBooks.slice(arrayOfBooks);
 						var ret = [];
 
@@ -36,33 +39,34 @@
 						}
 						return ret;
 					}
-					
-					function sortOrNot(sortOrder) {
+				
+					function sortOrNot(sortOrder) {		// order and display the books in either random or most-recent order,
+														// and swap the links
 						$('#random').html("<a href=\"javascript:doStuff('random');\">show random</a>");
 						$('#latest').html("showing most recent");
-						
+					
 						if (sortOrder == "random") {
 							arrayOfBooks = getRandomUnique(50);
 							$('#random').html("showing a random selection");
 							$('#latest').html("<a href=\"javascript:doStuff('latest');\">show most recent</a>");
 						}
-										
+									
 						for (var i = 0; i < numBooks; i++) {
-							var coverArt = arrayOfBooks[i].cover; // Cover art from LibraryThing (and not Amazon) doesn't load correctly, so use a generic image
+							var coverArt = arrayOfBooks[i].cover;
 							if (arrayOfBooks[i].cover.indexOf("librarything") >=0 ) {
-								coverArt = 'Generic_Cover.jpg';
+								coverArt = 'Generic_Cover.jpg'; // Cover art from LibraryThing (and not Amazon) doesn't load correctly, so use a generic image
 							}
 							var searchTerms = encodeURI(arrayOfBooks[i].title);
 							var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/all?q=" + searchTerms + "&resultsSortBy=MOSTRECENT"
 							text += '<div class="book"><a href="' + searchQuery + '"><img class="cover" src="' + coverArt + '" /></a></div>';
 							text += '<div class="hidden"><a href="' + searchQuery + '">' + arrayOfBooks[i].title + '</a><br><span class="author">by ' + arrayOfBooks[i].author_fl + '</span></div>';
 						}
-					
+				
 						$('#books').html(text); // populate the div with the covers
 					}
-					
-					sortOrNot(sortOrder);
-					
+				
+					sortOrNot(sortOrder); // run the sort and display once on page load
+				
 					$('.book').each(function() { // tooltip stuff
 						$(this).qtip({
 							content: {
@@ -88,10 +92,9 @@
 					});
 				}
 			});
-			
 		}
 	
-		$(document).ready(doStuff("random"));
+		$(document).ready(doStuff("random")); // load the page, with random sort as default
 
 	</script>
 	<div id="selector">
