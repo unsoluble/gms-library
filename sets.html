@@ -36,7 +36,7 @@
 					var arr = $.map(result.books, function(el) { return el }); // remap the result into a clean array
 							
 					for (i=0; i < arr.length; i++) {
-						var searchTerms = encodeURI(arr[i].title);
+						var searchTerms = encodeURI(arr[i].title); // book covers will link to a Destiny search for the title
 						var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/all?q=" + searchTerms + "&resultsSortBy=MOSTRECENT";
 						
 						var gradeLevel = arr[i].dateacquired_date.slice(-1); // gradeLevel is stored in the dateacquired_date field, encoded in the year; 2008 = grade 8, etc.
