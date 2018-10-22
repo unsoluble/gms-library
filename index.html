@@ -57,7 +57,7 @@
 								coverArt = 'Generic_Cover.jpg'; // Cover art from LibraryThing (and not Amazon) doesn't load correctly, so use a generic image
 							}
 							var searchTerms = encodeURI(arrayOfBooks[i].title);
-							var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/all?q=" + searchTerms + "&resultsSortBy=MOSTRECENT"
+							var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/all?q=" + searchTerms + "&resultsSortBy=MOSTRECENT";
 							text += '<div class="book"><a href="' + searchQuery + '"><img class="cover" src="' + coverArt + '" /></a></div>';
 							text += '<div class="hidden"><a href="' + searchQuery + '">' + arrayOfBooks[i].title + '</a><br><span class="author">by ' + arrayOfBooks[i].author_fl + '</span></div>';
 						}
