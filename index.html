@@ -43,13 +43,13 @@
 				
 					function sortOrNot(sortOrder) {		// order and display the books in either random or most-recent order,
 														// and swap the links
-						$('#random').html("<a href=\"javascript:doStuff('random');\">show random</a>");
+						$('#random').html("<a href=\"javascript:doStuff('random');\" target=\"_self\">show random</a>");
 						$('#latest').html("showing most recent");
 					
 						if (sortOrder == "random") {
 							arrayOfBooks = getRandomUnique(50);
 							$('#random').html("showing a random selection");
-							$('#latest').html("<a href=\"javascript:doStuff('latest');\">show most recent</a>");
+							$('#latest').html("<a href=\"javascript:doStuff('latest');\" target=\"_self\">show most recent</a>");
 						}
 									
 						for (var i = 0; i < numBooks; i++) {
