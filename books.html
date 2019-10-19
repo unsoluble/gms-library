@@ -19,6 +19,7 @@
 		var url_string = window.location.href;
 		var url = new URL(url_string);
 		var tag = url.searchParams.get("tag");
+		var school = url.searchParams.get("school");
 		
 			$.ajax({
 				url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books&tagList=' + tag + '&booksort=title',
@@ -29,7 +30,7 @@
 					
 					for (i=0; i < arr.length; i++) {
 						var searchTerms = encodeURI(arr[i].title);
-						var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/all?q=" + searchTerms + "&resultsSortBy=MOSTRECENT";
+						var searchQuery = "https://search.follettsoftware.com/metasearch/ui/" + school + "/search/all?q=" + searchTerms + "&resultsSortBy=MOSTRECENT";
 						text += '<div class="book"><a href="' + searchQuery + '"><img class="cover" style="max-width: 300px;" src="' + arr[i].cover + '" /></a></div>';
 						text += '<div class="hidden"><a href="' + searchQuery + '">' + arr[i].title + '</a><br><span class="author">by ' + arr[i].author_fl + '</span></div>';
 					}
