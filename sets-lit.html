@@ -30,8 +30,8 @@
             var arr = $.map(result.books, function(el) { return el });
                 
             for (i=0; i < arr.length; i++) {
-              // Skip the book if its copies are fewer than 25
-              if (arr[i].copies < 25) {
+              // Skip the book if it has more than 24 copies.
+              if (arr[i].copies > 24) {
                   continue;
               }
               

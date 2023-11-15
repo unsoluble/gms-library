@@ -30,6 +30,10 @@
             var arr = $.map(result.books, function(el) { return el });
                 
             for (i=0; i < arr.length; i++) {
+              // Skip the book if it has fewer than 25 copies.
+              if (arr[i].copies < 25) {
+                  continue;
+              }
               // Book covers will link to a Destiny search for the title.
               var searchTerms = encodeURI(arr[i].title); 
               var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/all?q=" + searchTerms + "&resultsSortBy=MOSTRECENT";
