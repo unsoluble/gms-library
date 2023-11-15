@@ -1,0 +1,79 @@
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="jquery.qtip.min.css" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,500,600,700,800' rel='stylesheet'>
+    <link href='styles.css' rel='stylesheet'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
+    <script src="stupidtable.js"></script>
+    <base target="_parent">
+  </head>
+  
+  <body>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $.ajax({
+          url: 'https://www.librarything.com/api_getdata.php?userid=unsoluble&key=2337767339&resultsets=books,bookreviews,booktags&reviewmax=800&tagList=NovelSet&max=200&showReviews=1&showTags=1',
+          dataType: 'jsonp',
+          success: function(result){
+            var text = '<table id="bookTable">';
+            text += '<thead><tr>';
+            text += '<th></th>';
+            text += '<th id="title-column" data-sort-onload="yes" data-sort="string">title</th>';
+            text += '<th id="author-column" data-sort="string" data-sort-multicolumn="title-column">author</th>';
+            text += '<th>summary</th>';
+            text += '<th id="author-column" data-sort="int" data-sort-multicolumn="author-column">copies</th>';
+            text += '</tr></thead>';
+            text += '<tbody>';
+            
+            // Remap the result into a clean array.
+            var arr = $.map(result.books, function(el) { return el });
+                
+            for (i=0; i < arr.length; i++) {
+              // Skip the book if its copies are fewer than 25
+              if (arr[i].copies < 25) {
+                  continue;
+              }
+              
+              // Book covers will link to a Destiny search for the title.
+              var searchTerms = encodeURI(arr[i].title); 
+              var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/all?q=" + searchTerms + "&resultsSortBy=MOSTRECENT";
+              
+              // Fix sorting for leading articles.
+              var sortTitle = ''; 
+              if (arr[i].title.substr(0, 2) == 'A ') {
+                sortTitle = arr[i].title.substr(2);
+              }
+              else if (arr[i].title.substr(0, 4) == 'The ') {
+                sortTitle = arr[i].title.substr(4);
+              }
+              else {
+                sortTitle = arr[i].title;
+              }
+              
+              // Cover art from LibraryThing (and not Amazon) doesn't load correctly, so use a generic image.
+              var coverArt = arr[i].cover; 
+              if (arr[i].cover.indexOf("librarything") >=0 ) {
+                coverArt = 'Generic_Cover.jpg';
+              }
+              
+              text += '<tr>';
+              text += '<td class="cover_td"><div class="book"><a href="' + searchQuery + '"><img class="cover" src="' + coverArt + '" /></a></div></td>';
+              text += '<td class="title_td" data-sort-value="' + sortTitle + '">' + arr[i].title + '</td>';
+              text += '<td class="author_td" data-sort-value="' + arr[i].author_code + '">' + arr[i].author_fl + '</td>';
+              text += '<td class="summary_td">' + arr[i].bookreview + '</td>';
+              text += '<td class="copies_td">' + arr[i].copies + '</td>';
+              text += '</tr>';
+            }
+            text += '</tbody></table>';
+            
+            $('#books').html(text); // insert the generated HTML
+            $("#bookTable").stupidtable(); // sort the table
+          }
+        });
+      });
+      
+    </script>
+    <div id="books"></div>
+  </body>
+</html>
