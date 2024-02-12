@@ -39,6 +39,8 @@
               var searchTerms = encodeURI(arr[i].title); 
               var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/all?q=" + searchTerms + "&resultsSortBy=MOSTRECENT";
               var gradeLevel = arr[i].dateacquired_date.slice(-1);
+              console.log(arr[i].dateacquired_date);
+              console.log(gradeLevel);
               // gradeLevel is stored in the dateacquired_date field, encoded in the year; 2008 = grade 8, etc.
               switch (gradeLevel) {
                 case '6':
