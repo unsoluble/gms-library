@@ -22,6 +22,7 @@
             text += '<th id="title-column" data-sort-onload="yes" data-sort="string">title</th>';
             text += '<th id="author-column" data-sort="string" data-sort-multicolumn="title-column">author</th>';
             text += '<th>summary</th>';
+            text += '<th id="grade-column" data-sort="string" data-sort-multicolumn="author-column">grade</th>';
             text += '<th id="author-column" data-sort="int" data-sort-multicolumn="author-column">copies</th>';
             text += '</tr></thead>';
             text += '<tbody>';
@@ -37,6 +38,19 @@
               // Book covers will link to a Destiny search for the title.
               var searchTerms = encodeURI(arr[i].title); 
               var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/all?q=" + searchTerms + "&resultsSortBy=MOSTRECENT";
+              var gradeLevel = arr[i].dateacquired_date.slice(-1);
+              // gradeLevel is stored in the dateacquired_date field, encoded in the year; 2008 = grade 8, etc.
+              switch (gradeLevel) {
+                case '9':
+                  gradeLevel = 'any'
+                  break;
+                case '6':
+                case '7':
+                case '8':
+                  break;
+                default:
+                  gradeLevel = '';
+              }
               
               // Fix sorting for leading articles.
               var sortTitle = ''; 
@@ -61,6 +75,7 @@
               text += '<td class="title_td" data-sort-value="' + sortTitle + '">' + arr[i].title + '</td>';
               text += '<td class="author_td" data-sort-value="' + arr[i].author_code + '">' + arr[i].author_fl + '</td>';
               text += '<td class="summary_td">' + arr[i].bookreview + '</td>';
+              text += '<td class="grade_td">' + gradeLevel + '</td>';
               text += '<td class="copies_td">' + arr[i].copies + '</td>';
               text += '</tr>';
             }
