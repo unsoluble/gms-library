@@ -38,20 +38,15 @@
               // Book covers will link to a Destiny search for the title.
               var searchTerms = encodeURI(arr[i].title); 
               var searchQuery = "https://search.follettsoftware.com/metasearch/ui/27293/search/all?q=" + searchTerms + "&resultsSortBy=MOSTRECENT";
-              var gradeLevel = arr[i].dateacquired_date.slice(-1);
-              console.log(arr[i].tags);
-              // gradeLevel is stored in the dateacquired_date field, encoded in the year; 2008 = grade 8, etc.
-              switch (gradeLevel) {
-                case '9':
-                  gradeLevel = 'any'
-                  break;
-                case '6':
-                case '7':
-                case '8':
-                  break;
-                default:
-                  gradeLevel = '';
+              
+              let gradeLevel = "Any";
+              for (let tag of arr[i].tags) {
+                  if (tag.startsWith("Grade")) {
+                      gradeLevel = parseInt(tag.replace("Grade", ""));
+                      break;
+                  }
               }
+              console.log(arr[i].title, gradeLevel);
               
               // Fix sorting for leading articles.
               var sortTitle = ''; 
